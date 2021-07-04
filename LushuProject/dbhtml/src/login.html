@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui@2.14.1/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="CSS/layout.css">
+</head>
+<body>
+<div class="header">
+    <h1>TXX小队路书</h1>
+</div>
+
+<div class="topnav">
+    <a href="begin.html">返回</a>
+    <a href="register.html">注册</a>
+</div>
+
+<div style="width:100%;">
+    <div id="app" style="width:50%;margin-left: 20%">
+        <div style="margin: 20px; "></div>
+        <el-form :label-position="labelPosition" label-width="80px" :model="formLogin">
+            <el-form-item label="登录方式" prop="way">
+                <el-select v-model="formLogin.login_type" placeholder="请选择登录方式">
+                    <el-option label="手机号码" value="phone"></el-option>
+                    <el-option label="邮箱" value="email"></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="账号">
+                <el-input placeholder="请输入账号" v-model="formLogin.account"></el-input>
+            </el-form-item>
+            <el-form-item label="密码">
+                <el-input placeholder="请输入密码" v-model="formLogin.password" show-password></el-input>
+            </el-form-item>
+            <el-button type="primary" round @click="login">登录</el-button>
+        </el-form>
+    </div>
+</div>
+
+
+</body>
+<!-- import Vue before Element -->
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<!-- import JavaScript -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+<script>
+    var Main = new Vue({
+        el: '#app',
+        data() {
+            return {
+                labelPosition: 'right',
+                formLogin: {
+                    login_type: '',
+                    account: '',
+                    password: ''
+                }
+            };
+        },
+        methods: {
+            login() {
+                axios({
+                    method: 'post',
+                    url: 'http://localhost:8080/login',
+                    data: {
+                        firstName: 'Fred',
+                        lastName: 'Flintstone'
+                    }
+                }).then(function (res) {
+                    document.cookie = res.id;
+                    console.log(res.data.name);
+                }, function (res) {
+                    alert("Register failed!");
+                    console.log(res.status);
+                });
+            }
+        }
+
+    })
+
+    // var login = new Vue(
+    //     {
+    //         el:'#app',
+    //         methods:{
+    //             post:function () {
+    //                 this.$http.post('/try/ajax/demo_test_post.php',JSON.stringify(formLabelAlign),{emulateJSON:true}).then(function(res){
+    //                     alert("Register success!");
+    //                 },function(res){
+    //                     alert("Register failed!");
+    //                     console.log(res.status);
+    //                 });
+    //             }
+    //         }
+    //     }
+    // )
+    // var Ctor = Vue.extend(Main)
+    // new Ctor().$mount('#app')
+</script>
+
+
+</html>

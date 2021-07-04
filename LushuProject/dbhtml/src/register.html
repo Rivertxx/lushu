@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui@2.14.1/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="CSS/layout.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!--<script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>-->
+</head>
+<body>
+<div class="header">
+    <h1>TXX小队路书</h1>
+</div>
+
+<div class="topnav">
+    <a href="begin.html">返回</a>
+    <a href="login.html">登录</a>
+</div>
+
+<div style="width:100%;">
+    <div id="app" style="width:50%;margin-left: 20%">
+        <div style="margin: 20px; "></div>
+        <el-form :label-position="labelPosition" label-width="80px" :model="formRegister">
+            <el-form-item label="昵称">
+                <el-input placeholder="请输入昵称" v-model="formRegister.user_name"></el-input>
+            </el-form-item>
+            <el-form-item label="性别" prop="way">
+                <el-select v-model="formRegister.sex" placeholder="请选择性别">
+                    <el-option label="男" value="male"></el-option>
+                    <el-option label="女" value="female"></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="年龄">
+                <el-input placeholder="请输入年龄" v-model="formRegister.age"></el-input>
+            </el-form-item>
+            <el-form-item label="邮箱">
+                <el-input placeholder="请输入邮箱" v-model="formRegister.email"></el-input>
+            </el-form-item>
+            <el-form-item label="手机号码">
+                <el-input placeholder="请输入手机号码" v-model="formRegister.phone"></el-input>
+            </el-form-item>
+            <el-form-item label="密码">
+                <el-input placeholder="请输入密码" v-model="formRegister.password" show-password></el-input>
+            </el-form-item>
+            <el-button type="primary" round @click="regist">注册</el-button>
+        </el-form>
+    </div>
+</div>
+
+
+</body>
+<!-- import Vue before Element -->
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<!-- import JavaScript -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+<script  type = "text/javascript">
+    window.onload = function() {
+        var Main = new Vue({
+                el: '#app',
+                data() {
+                    return {
+                        labelPosition: 'right',
+                        formRegister: {
+                            user_name:'',
+                            sex:'',
+                            age:'',
+                            email:'',
+                            phone:'',
+                            password:''
+                        }
+                    };
+                },
+                methods: {
+                    regist() {
+                        axios({
+                            method: 'post',
+                            url: 'http://localhost:8080/regist',
+                            data: {
+                                firstName: 'Fred',
+                                lastName: 'Flintstone'
+                            }
+                        }).then(function (res) {
+                            console.log(res.data.name);
+                        }, function (res) {
+                            alert("Register failed!");
+                            console.log(res.status);
+                        });
+                    }
+                    // },
+                    // post: function () {
+                    //     this.$http.post('/try/ajax/demo_test_post.php', {name:"菜鸟教程",url:"http://www.runoob.com"}, {emulateJSON: true}).then(function (res) {
+                    //         alert("Register success!");
+                    //     }, function (res) {
+                    //         alert("Register failed!");
+                    //         console.log(res.status);
+                    //     });
+                    // }
+                }
+            }
+        )
+    }
+</script>
+
+
+</html>

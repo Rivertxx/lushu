@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>huodong</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui@2.14.1/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="CSS/layout.css">
+</head>
+
+<style>
+    .picture1
+    {
+        margin-left: 80px;
+        margin-top: 15px;
+    }
+
+    .alink
+    {
+        color: white;
+        text-decoration: none;
+    }
+</style>
+
+
+<body>
+<div class="header">
+    <h1>TXX小队路书</h1>
+</div>
+
+<div class="topnav">
+    <a href="login.html">登录</a>
+    <a href="register.html">注册</a>
+    <a href="#">退出登录</a>
+</div>
+
+<div class="row">
+    <div class="column1">
+        <div id="app">
+            <el-row class="tac">
+                <el-col>
+                    <el-menu
+                            default-active="2"
+                            class="el-menu-vertical-demo"
+                            @open="handleOpen"
+                            @close="handleClose"
+                            background-color="#545c64"
+                            text-color="#fff"
+                            active-text-color="#ffd04b">
+                        <el-menu-item index="0">
+                            <i class="el-icon-menu"></i>
+                            <a href="begin.html" class="alink">主页</a>
+                        </el-menu-item>
+                        <el-menu-item index="1">
+                            <i class="el-icon-menu"></i>
+                            <a href="lushu.html" class="alink">路书</a>
+                        </el-menu-item>
+                        <el-menu-item index="2">
+                            <i class="el-icon-menu"></i>
+                            <a href="huodong.html" class="alink">活动</a>
+                        </el-menu-item>
+                        <el-menu-item index="3">
+                            <i class="el-icon-menu"></i>
+                            <a href="navigation.html" class="alink">导航</a>
+                        </el-menu-item>
+                        <el-menu-item index="4">
+                            <i class="el-icon-setting"></i>
+                            <a href="about_us.html" class="alink">联系我们</a>
+                        </el-menu-item>
+                    </el-menu>
+                </el-col>
+            </el-row>
+        </div>
+    </div>
+
+    <div class="column2">
+        <div class="row_in_col2" style="position: relative;height: 520px;border: 1px white;" id="search_act">
+            <img src="./pic/1.jpg" height="500px" width="1000px" class="picture1">
+            <el-input v-model="input" placeholder="请输入活动" style="position: absolute; top: 150px; left: 350px;width: 400px">
+            </el-input>
+            <el-button type="primary" round style="position: absolute; top: 150px; left: 780px">查找活动</el-button>
+        </div>
+        <div class="row_in_col2">
+            <footer style="margin-left: 10px">
+                <p>Posted by: TX MZQ ZYX</p>
+                <p>Contact information: 1873787521@qq.com</p>
+            </footer>
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+<!-- import Vue before Element -->
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<!-- import JavaScript -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+<script>
+    new Vue().$mount('#app')
+    var Main = {
+        data() {
+            return {
+                input: ''
+            }
+        }
+    }
+    var Ctor = Vue.extend(Main)
+    new Ctor().$mount('#search_act')
+</script>
+</html>

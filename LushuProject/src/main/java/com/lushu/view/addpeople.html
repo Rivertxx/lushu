@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Addpeople</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui@2.14.1/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="CSS/layout.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!--<script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>-->
+</head>
+<body>
+<div class="header">
+    <h1>TXX小队路书</h1>
+</div>
+
+<div class="topnav">
+    <a href="begin.html">返回主页</a>
+</div>
+
+<div style="width:100%;">
+    <div id="app" style="width:50%;margin-left: 20%">
+        <div style="margin: 20px; "></div>
+        <el-form :label-position="labelPosition" label-width="80px" :model="formStu">
+            <el-form-item label="姓名">
+                <el-input placeholder="请输入姓名" v-model="formStu.stu_name"></el-input>
+            </el-form-item>
+            <el-form-item label="性别" prop="way">
+                <el-select v-model="formStu.stu_sex" placeholder="请选择性别">
+                    <el-option label="男" value="male"></el-option>
+                    <el-option label="女" value="female"></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="年龄">
+                <el-input placeholder="请输入年龄" v-model="formStu.stu_age"></el-input>
+            </el-form-item>
+            <el-form-item label="学号">
+                <el-input placeholder="请输入学号" v-model="formStu.stu_id"></el-input>
+            </el-form-item>
+            <el-form-item label="手机号码">
+                <el-input placeholder="请输入手机号码" v-model="formStu.stu_phone"></el-input>
+            </el-form-item>
+            <el-form-item label="校区">
+                <el-input placeholder="请输入校区" v-model="formStu.campus"></el-input>
+            </el-form-item>
+            <el-button type="primary" round @click="addStu" style="margin-left: 300px">添加学生</el-button>
+        </el-form>
+    </div>
+</div>
+
+
+</body>
+<!-- import Vue before Element -->
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<!-- import JavaScript -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+<script  type = "text/javascript">
+    window.onload = function() {
+        var Main = new Vue({
+                el: '#app',
+                data: {
+                    labelPosition: 'right',
+                    formStu: {
+                        activity_id: localStorage.getItem("act"),
+                        stu_id: '',
+                        stu_name: '',
+                        stu_sex: '',
+                        stu_age: '',
+                        stu_phone: '',
+                        campus: ''
+                    }
+                },
+                methods: {
+                    addStu() {
+                        axios({
+                            method: 'post',
+                            url: 'http://localhost:8080/uploadParticipantInformation',
+                            data:this.formStu
+                        }).then(function (res) {
+                            alert("Add Student Successful!");
+                            console.log(res.data.stu_name);
+                            window.location.href="huodong.html";
+                        }, function (res) {
+                            alert("Add Student failed!");
+                            console.log(this.formStu.stu_name);
+                            console.log(res.status);
+                        });
+                    }
+                }
+            }
+        )
+    }
+</script>
+
+
+</html>

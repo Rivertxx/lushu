@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>query_route</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui@2.14.1/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="CSS/layout.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+</head>
+
+<style>
+    .picture1 {
+        margin-left: 80px;
+        margin-top: 15px;
+    }
+
+    .alink {
+        color: white;
+        text-decoration: none;
+    }
+
+    .fl {
+        color: white;
+    }
+
+    .lushu{
+        float: left;
+        width: 33%;
+    }
+</style>
+
+
+<body>
+<div class="header">
+    <h1>TXX小队路书</h1>
+</div>
+
+<div class="topnav">
+    <a href="login.html" id="login">登录</a>
+    <a href="register.html">注册</a>
+    <a href="#" type="button" onclick="exit()">退出登录</a>
+</div>
+
+<div class="row">
+    <div class="column1">
+        <div id="app">
+            <el-row class="tac">
+                <el-col>
+                    <el-menu
+                            default-active="1"
+                            class="el-menu-vertical-demo"
+                            @open="handleOpen"
+                            @close="handleClose"
+                            background-color="#545c64"
+                            text-color="#fff"
+                            active-text-color="#ffd04b">
+                        <el-menu-item index="0">
+                            <i class="el-icon-menu"></i>
+                            <a href="begin.html" class="alink">主页</a>
+                        </el-menu-item>
+                        <el-menu-item index="1">
+                            <i class="el-icon-menu"></i>
+                            <a href="lushu.html" class="alink">路书</a>
+                        </el-menu-item>
+                        <el-menu-item index="2">
+                            <i class="el-icon-menu"></i>
+                            <a href="huodong.html" class="alink">活动</a>
+                        </el-menu-item>
+                        <el-menu-item index="3">
+                            <i class="el-icon-menu"></i>
+                            <a href="navigation.html" class="alink">导航</a>
+                        </el-menu-item>
+                        <el-menu-item index="4">
+                            <i class="el-icon-setting"></i>
+                            <a href="about_us.html" class="alink">联系我们</a>
+                        </el-menu-item>
+                    </el-menu>
+                </el-col>
+            </el-row>
+        </div>
+    </div>
+
+    <div class="column2">
+        <div class="row_in_col2" style="position: relative;height: 420px;border: 1px white;" id="search_lushu">
+            <img src="./pic/4.jpg" height="400px" width="1000px" class="picture1">
+            <el-input v-model="lushu_message" placeholder="请输入路书"
+                      style="position: absolute; top: 100px; left: 350px;width: 400px">
+            </el-input>
+            <el-button type="primary" round style="position: absolute; top: 100px; left: 780px" onclick="set_message()">
+                <a href="query_route.html">查找路书</a>
+            </el-button>
+        </div>
+
+        <div class="topnbv">
+            <a href="">查找到的路书</a>
+        </div>
+
+        <div class="row_in_col2"  id="initial_lushu" style="height: 260px">
+            <div>
+                <!--<div class="lushu" v-for="(item,index) in list" :key="item.route_id" style="position: relative">-->
+                <!--<img class="main-img" src="./pic/lushu.jpg" >-->
+                <!--<h2 class="roadbook-title" style="position: absolute;top: 80px;left: 150px;color: white">{{item.route_name}}</h2>-->
+                <!--&lt;!&ndash;<button type="button" onclick="set_route_id(`${{index}}`)">set</button>&ndash;&gt;-->
+                <!--</div>-->
+
+                <!--<div class="lushu"  v-for="n in findnum" style="position: relative">-->
+                    <!--<a href="routeinfo_1.html">-->
+                        <!--<img class="main-img" src="./pic/lushu.jpg" >-->
+                        <!--<h2 class="roadbook-title" style="position: absolute;top: 80px;left: 150px;color: white">{{list[{{n}}].route_name}}</h2>-->
+                        <!--&lt;!&ndash;<h2 class="roadbook-title" style="position: absolute;top: 100px;left: 150px;color: white">{{index}}</h2>&ndash;&gt;-->
+                    <!--</a>-->
+                <!--</div>-->
+
+
+                <div class="lushu"  style="position: relative;margin-left: 12px">
+                    <a href="routeinfo_1.html">
+                        <img class="main-img" src="./pic/lushu.jpg" >
+                        <h2 class="roadbook-title" style="position: absolute;top: 80px;left: 120px;color: white">{{list[0].route_name}}</h2>
+                        <!--<h2 class="roadbook-title" style="position: absolute;top: 100px;left: 150px;color: white">{{index}}</h2>-->
+                    </a>
+                </div>
+                <!--<div class="lushu"  style="position: relative">-->
+                    <!--<a href="routeinfo_2.html">-->
+                        <!--<img class="main-img" src="./pic/lushu.jpg" >-->
+                        <!--<h2 class="roadbook-title" style="position: absolute;top: 80px;left: 150px;color: white">{{list[1].route_name}}</h2>-->
+                        <!--&lt;!&ndash;<h2 class="roadbook-title" style="position: absolute;top: 100px;left: 150px;color: white">{{index}}</h2>&ndash;&gt;-->
+                    <!--</a>-->
+                <!--</div>-->
+                <!--<div class="lushu"  style="position: relative">-->
+                    <!--<a href="routeinfo_3.html">-->
+                        <!--<img class="main-img" src="./pic/lushu.jpg" >-->
+                        <!--<h2 class="roadbook-title" style="position: absolute;top: 80px;left: 150px;color: white">{{list[2].route_name}}</h2>-->
+                        <!--&lt;!&ndash;<h2 class="roadbook-title" style="position: absolute;top: 100px;left: 150px;color: white">{{index}}</h2>&ndash;&gt;-->
+                    <!--</a>-->
+                <!--</div>-->
+            </div>
+        </div>
+
+        <div class="row_in_col2">=
+            <footer style="margin-left: 10px">
+                <p>Posted by: TX MZQ ZYX</p>
+                <p>Contact information: 1873787521@qq.com</p>
+            </footer>
+        </div>
+    </div>
+</div>
+
+
+</body>
+<!-- import Vue before Element -->
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<!-- import JavaScript -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+<script>
+    var user;
+    var message;
+    var findnum;
+    window.onload = function () {
+        user = localStorage.getItem("user_id");
+        message = localStorage.getItem("message");
+        has_user();
+        load_route();
+    };
+
+    var initial_lushu = new Vue(
+        {
+            el: '#initial_lushu',
+            data: {
+                lushu_message: '',
+                list: []
+            },
+            methods: {
+            }
+        }
+    );
+
+    function has_user() {
+        console.log(user);
+        if(user!=null)
+        {
+            document.getElementById("login").innerHTML = "个人中心";
+            document.getElementById("login").href = "personpage.html";
+        }
+        else
+        {
+            console.log("No user!");
+        }
+    }
+
+    function exit() {
+        user = null;
+        localStorage.removeItem("user_id");
+        document.getElementById("login").innerHTML = "登录";
+        document.getElementById("login").href = "login.html";
+        alert("Exit successful!");
+    }
+
+    function load_route() {
+        axios({
+            method: 'post',
+            url: 'http://localhost:8080/fuzzyQueryRoutes',
+            data: {name: message}
+        }).then(function (res) {
+            console.log(res);
+            if(res.data.state === "success")
+            {
+                alert("Search successfully!");
+                initial_lushu.list = res.data.routes;
+                findnum = res.data.routes.length;
+                if(findnum > 3)
+                {
+                    findnum = 3;
+                }
+                findnum = findnum - 1;
+            }
+            else
+            {
+                alert("Not find!");
+            }
+            localStorage.setItem("route_id1",initial_lushu.list[0].route_id);
+            // localStorage.setItem("route_id2",initial_lushu.list[1].route_id);
+            // localStorage.setItem("route_id3",initial_lushu.list[2].route_id);
+            // console.log("load successful!");
+        }).catch(function (res) {
+            alert("Search failed!");
+        });
+    }
+
+    function set_message() {
+        localStorage.setItem("message",search_lushu.lushu_message);
+    }
+
+    new Vue().$mount('#app');
+    var search_lushu = new Vue(
+        {
+            el: '#search_lushu',
+            data: {
+                lushu_message: ''
+            }
+        }
+    )
+</script>
+</html>

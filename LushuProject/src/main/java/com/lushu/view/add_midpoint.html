@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Add_midpoint</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui@2.14.1/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="CSS/layout.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!--<script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>-->
+</head>
+<body>
+<div class="header">
+    <h1>TXX小队路书</h1>
+</div>
+
+<div class="topnav">
+    <a href="begin.html">返回主页</a>
+</div>
+
+<div style="width:100%;">
+    <div id="app" style="width:50%;margin-left: 20%">
+        <div style="margin: 20px; "></div>
+        <el-form :label-position="labelPosition" label-width="80px" :model="formMidpoint">
+            <el-form-item label="途经点一">
+                <el-input placeholder="请输入途经点一" v-model="formMidpoint.keypoint_1"></el-input>
+            </el-form-item>
+            <el-form-item label="途经点二">
+                <el-input placeholder="请输入途经点二" v-model="formMidpoint.keypoint_2"></el-input>
+            </el-form-item>
+            <el-form-item label="途经点三">
+                <el-input placeholder="请输入途经点三" v-model="formMidpoint.keypoint_3"></el-input>
+            </el-form-item>
+            <el-form-item label="途经点四">
+                <el-input placeholder="请输入途经点四" v-model="formMidpoint.keypoint_4"></el-input>
+            </el-form-item>
+            <el-button type="primary" round @click="addMidpoint" style="margin-left: 300px">添加途经点</el-button>
+        </el-form>
+    </div>
+</div>
+
+
+</body>
+<!-- import Vue before Element -->
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<!-- import JavaScript -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+<script  type = "text/javascript">
+    window.onload = function() {
+        var Main = new Vue({
+                el: '#app',
+                data: {
+                    labelPosition: 'right',
+                    formMidpoint: {
+                        route_id: localStorage.getItem("route"),
+                        keypoint_1: '',
+                        keypoint_2: '',
+                        keypoint_3: '',
+                        keypoint_4: ''
+                    }
+                },
+                methods: {
+                    addMidpoint() {
+                        axios({
+                            method: 'post',
+                            url: 'http://localhost:8080/uploadKeypoint',
+                            data:this.formMidpoint
+                        }).then(function (res) {
+                            console.log(res);
+                            alert("Add Midpoint Successful!");
+                            window.history.back(-1);
+                        }, function (res) {
+                            alert("Add Midpoint failed!");
+                        });
+                    }
+                }
+            }
+        )
+    }
+</script>
+
+
+</html>

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui@2.14.1/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="CSS/layout.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+</head>
+<body>
+<div class="header">
+    <h1>TXX小队路书</h1>
+</div>
+
+<div class="topnav">
+    <a href="begin.html">返回</a>
+    <a href="register.html">注册</a>
+</div>
+
+<div style="width:100%;">
+    <div id="app" style="width:50%;margin-left: 20%">
+        <div style="margin: 20px; "></div>
+        <el-form :label-position="labelPosition" label-width="80px" :model="formLogin">
+            <el-form-item label="登录方式" prop="way">
+                <el-select v-model="formLogin.login_type" placeholder="请选择登录方式">
+                    <el-option label="手机号码" value="phone"></el-option>
+                    <el-option label="邮箱" value="email"></el-option>
+                </el-select>
+            </el-form-item>
+            <el-form-item label="账号">
+                <el-input placeholder="请输入账号" v-model="formLogin.account"></el-input>
+            </el-form-item>
+            <el-form-item label="密码">
+                <el-input placeholder="请输入密码" v-model="formLogin.password" show-password></el-input>
+            </el-form-item>
+            <el-button type="primary" round @click="login">登录</el-button>
+        </el-form>
+    </div>
+</div>
+
+
+</body>
+<!-- import Vue before Element -->
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<!-- import JavaScript -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+<script>
+    var Main = new Vue({
+        el: '#app',
+        data() {
+            return {
+                labelPosition: 'right',
+                formLogin: {
+                    login_type: '',
+                    account: '',
+                    password: ''
+                }
+            };
+        },
+        methods: {
+            login() {
+                axios({
+                    method: 'post',
+                    url: 'http://localhost:8080/login',
+                    data:this.formLogin
+                }).then(function (res) {
+                    if(res.data.State === "success")
+                    {
+                        alert("Login successful!");
+                        localStorage.setItem("user_id",res.data.user_id);
+                        window.location.href="begin.html";
+                    }
+                    else
+                        alert("Login failed! Account don't exist or with wrong password!");
+                    console.log(res);
+                }, function (res) {
+                    alert("Login failed!");
+                    console.log(res.status);
+                });
+            }
+        }
+
+    })
+
+</script>
+
+
+</html>

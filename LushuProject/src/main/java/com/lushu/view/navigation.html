@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>navigation</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui@2.14.1/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="CSS/layout.css">
+</head>
+
+<style>
+    .picture1
+    {
+        margin-left: 80px;
+        margin-top: 15px;
+    }
+
+    .alink
+    {
+        color: white;
+        text-decoration: none;
+    }
+</style>
+
+
+<body>
+<div class="header">
+    <h1>TXX小队路书</h1>
+</div>
+
+<div class="topnav">
+    <a href="login.html" id="login">登录</a>
+    <a href="register.html">注册</a>
+    <a href="#" type="button" onclick="exit()">退出登录</a>
+</div>
+
+<div class="row">
+    <div class="column1" style="height: 1200px">
+        <div id="app">
+            <el-row class="tac">
+                <el-col>
+                    <el-menu
+                            default-active="3"
+                            class="el-menu-vertical-demo"
+                            @open="handleOpen"
+                            @close="handleClose"
+                            background-color="#545c64"
+                            text-color="#fff"
+                            active-text-color="#ffd04b">
+                        <el-menu-item index="0">
+                            <i class="el-icon-menu"></i>
+                            <a href="begin.html" class="alink">主页</a>
+                        </el-menu-item>
+                        <el-menu-item index="1">
+                            <i class="el-icon-menu"></i>
+                            <a href="lushu.html" class="alink">路书</a>
+                        </el-menu-item>
+                        <el-menu-item index="2">
+                            <i class="el-icon-menu"></i>
+                            <a href="huodong.html" class="alink">活动</a>
+                        </el-menu-item>
+                        <el-menu-item index="3">
+                            <i class="el-icon-menu"></i>
+                            <a href="navigation.html" class="alink">导航</a>
+                        </el-menu-item>
+                        <el-menu-item index="4">
+                            <i class="el-icon-setting"></i>
+                            <a href="about_us.html" class="alink">联系我们</a>
+                        </el-menu-item>
+                    </el-menu>
+                </el-col>
+            </el-row>
+        </div>
+    </div>
+
+    <div class="column2" style="height: 1200px">
+        <div class="row_in_col2" style="height: 320px;border: 1px white;">
+            <img src="./pic/1.jpg" height="300px" width="1000px" class="picture1">
+        </div>
+        <div>
+            <p style="text-align: center;font-size: 20px;color: white">北航行者车协介绍</p>
+            <ul style="color: white;">
+                <li>中文全称：北京航空航天大学行者自行车协会</li>
+                <li>英文全称：Air-CyclingofBUAA</li>
+                <li>协会性质：非盈利性大学生兴趣爱好类社团</li>
+                <li>运动项目：自行车</li>
+                <li>成立时间：2010年10月7日</li>
+                <li>协会结构:
+                    行者车协由会长及会长团领导，并设有办公室、宣传部、外联部、活动部、技术部五个部门。
+                    每个部门由一名部长及若干名干事组成。</li>
+                <li>日常活动:<br>
+                    单日骑游：时间多定在周六，内容主要是以强度为中低级的骑游为主，主要由活动部负责。<br>
+                    多日拉练：时间多定在多日法定节假日（清明、五一、端午、十一、中秋等），内容是以强度为中高级的拉练为主，主要有活动部负责。<br>
+                    外联交流：时间不定期，内容主要是参加兄弟车协生日庆、参加交流会、参加交流比赛以及筹办行者车协生日庆等活动，主要由外联部负责。<br>
+                    校内活动：时间不定期，内容主要是面向校内广大师生的车协宣传活动，如组织举办校内趣味赛、组织观看励志骑行电影、组织技术培训讲座等，主要有宣传部负责。<br>
+                    义务修车：时间为每周五下午3点到5点，地点在四栋公寓楼之间，内容是面向广大师生的义务修车活动，如组装折叠车、补胎、调刹车等，主要由技术部负责。</li>
+                <li>远征:<br>
+                    2014年7月15日——2014年8月11日【丽江——拉萨】<br>
+                    滇藏之旅<br>
+                    人数：14人<br>
+                    里程：1900KM<br>
+                    2014年7月13日——2014年8月2日【桂林——九寨沟】<br>
+                    桂林——九寨沟<br>
+                    人数：7人<br>
+                    里程：1500KM<br>
+                    2013年7月6日——2013年7月28日【北京——大连】<br>
+                    北京——大连之旅<br>
+                    人数：4人<br>
+                    里程：1700KM</li>
+                <li>曾获奖项：<br>
+                    行者车协在2013-14年度北航优秀社团中被评为“五星级社团”<br>
+                    行者车协在2014-15年度北航优秀社团中被评为“五星级社团”<br>
+                    行者车协在2016年荣获“全球百家体育公益社团”。<br>
+                    行者车协在2015-16年度北航优秀社团中被评为“五星级社团”<br>
+                    行者车协在2016-17年度北航优秀社团中被评为“五星级社团”<br>
+                    行者车协在2017-18年度北航优秀社团中被评为“五星级社团”<br>
+                </li>
+            </ul>
+        </div>
+        <div class="row_in_col2">
+            <footer style="margin-left: 10px">
+                <p>Posted by: TX MZQ ZYX</p>
+                <p>Contact information: 1873787521@qq.com</p>
+            </footer>
+        </div>
+    </div>
+</div>
+
+
+
+</body>
+<!-- import Vue before Element -->
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<!-- import JavaScript -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+<script>
+    var user;
+    window.onload = function () {
+        user = localStorage.getItem("user_id");
+        has_user();
+    };
+
+    function has_user() {
+        console.log(user);
+        if(user!=null)
+        {
+            document.getElementById("login").innerHTML = "个人中心";
+            document.getElementById("login").href = "personpage.html"
+        }
+        else
+        {
+            console.log("No user!");
+        }
+    }
+
+    function exit() {
+        user = null;
+        localStorage.removeItem("user_id");
+        document.getElementById("login").innerHTML = "登录";
+        document.getElementById("login").href = "login.html";
+        alert("Exit successful!");
+    }
+
+    new Vue().$mount('#app')
+</script>
+</html>

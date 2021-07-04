@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>routeinfo1</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui@2.14.1/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="CSS/layout.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+</head>
+
+<style>
+    .picture1
+    {
+        margin-left: 80px;
+        margin-top: 15px;
+    }
+
+    .alink
+    {
+        color: white;
+        text-decoration: none;
+    }
+
+    #person
+    {
+        float: left;
+        display: block;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        height: 48px;
+    }
+
+    #login
+    {
+        float: left;
+        display: block;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        height: 48px;
+        text-decoration: none;
+    }
+
+    #person :hover{
+        background-color: #ddd;
+        color: black;
+    }
+
+    #login :hover{
+        background-color: #ddd;
+        color: black;
+    }
+
+</style>
+
+
+<body>
+<div class="header">
+    <h1>TXX小队路书</h1>
+</div>
+
+<div class="topnav">
+    <a href="begin.html" id="login">返回主页</a>
+    <!--<a href="#" id="person">个人中心</a>-->
+</div>
+
+<div class="row">
+    <div class="column1">
+        <div id="app">
+            <el-row class="tac">
+                <el-col>
+                    <el-menu
+                            default-active="0"
+                            class="el-menu-vertical-demo"
+                            @open="handleOpen"
+                            @close="handleClose"
+                            background-color="#545c64"
+                            text-color="#fff"
+                            active-text-color="#ffd04b">
+                        <el-menu-item index="0">
+                            <i class="el-icon-menu"></i>
+                            <a href="begin.html" class="alink">主页</a>
+                        </el-menu-item>
+                        <el-menu-item index="1">
+                            <i class="el-icon-menu"></i>
+                            <a href="lushu.html" class="alink">路书</a>
+                        </el-menu-item>
+                        <el-menu-item index="2">
+                            <i class="el-icon-menu"></i>
+                            <a href="huodong.html" class="alink">活动</a>
+                        </el-menu-item>
+                        <el-menu-item index="3">
+                            <i class="el-icon-menu"></i>
+                            <a href="navigation.html" class="alink">导航</a>
+                        </el-menu-item>
+                        <el-menu-item index="4">
+                            <i class="el-icon-setting"></i>
+                            <a href="about_us.html" class="alink">联系我们</a>
+                        </el-menu-item>
+                    </el-menu>
+                </el-col>
+            </el-row>
+        </div>
+    </div>
+
+    <div class="column2">
+        <div class="row_in_col2" style="height: 520px;border: 1px white;">
+            <img src="./pic/3.jpg" height="500px" width="1000px" class="picture1">
+        </div>
+
+        <div class="topnbv">
+            <a href="">活动信息</a>
+            <a href="alter_actinfo.html">修改信息</a>
+            <a href="#" type="button" onclick="delete_act()">删除活动</a>
+            <a href="addpeople.html">添加参与人员</a>
+            <a href="queryStu.html">查看参与人员</a>
+        </div>
+
+        <div style="margin: 20px; "></div>
+
+        <div id="app1">
+            <el-table
+                    :data="tableData"
+                    stripe
+                    style="width: 80%; margin-left: 80px">
+                <el-table-column
+                        prop="activity_name"
+                        label="活动名称"
+                        width="250">
+                </el-table-column>
+                <el-table-column
+                        prop="date"
+                        label="活动日期"
+                        width="250">
+                </el-table-column>
+                <el-table-column
+                        prop="participants_number"
+                        label="参与人数"
+                        width="250">
+                </el-table-column>
+                <el-table-column
+                        prop="introduction"
+                        label="活动介绍"
+                        width="250">
+                </el-table-column>
+            </el-table>
+        </div>
+
+        <div cl>
+            <div class="row_in_col2">
+                <footer style="margin-left: 10px">
+                    <p>Posted by: TX MZQ ZYX</p>
+                    <p>Contact information: 1873787521@qq.com</p>
+                </footer>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+<!-- import Vue before Element -->
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<!-- import JavaScript -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+<script>
+    var user;
+    var act;
+    window.onload = function () {
+        user = localStorage.getItem("user_id");
+        act = localStorage.getItem("act_id1");
+        localStorage.setItem("act",act);
+        query_act();
+    };
+
+    var actinfo = new Vue(
+        {
+            el: '#act_info',
+            data: {
+                info: {}
+            },
+            methods: {
+            }
+        }
+    );
+
+    var Main = new Vue({
+        el: '#app1',
+        data() {
+            return {
+                tableData: []
+            }
+        }
+    });
+
+    function query_act() {
+        axios({
+            method: 'post',
+            url: 'http://localhost:8080/queryActivity',
+            data: {activity_id: act}
+        }).then(function (res) {
+            console.log(res);
+            actinfo.info = res.data.activity;
+            Main.tableData = [res.data.activity];
+            console.log(actinfo.info);
+            console.log("Query successful!");
+        }).catch(function (res) {
+            alert("Query failed!");
+        });
+    }
+
+    function delete_act() {
+        axios({
+            method: 'post',
+            url: 'http://localhost:8080/deleteActivity',
+            data: {
+                activity_id: act,
+                user_id: user
+            }
+        }).then(function (res) {
+            console.log(res);
+            if(res.data.state === "success")
+            {
+                alert("Delete successful!");
+                window.location.href="huodong.html";
+            }
+            else {
+                alert("Delete failed! You don't have the role to do it!");
+            }
+        }).catch(function (res) {
+            alert("Delete failed!");
+        });
+    }
+    new Vue().$mount('#app')
+</script>
+</html>

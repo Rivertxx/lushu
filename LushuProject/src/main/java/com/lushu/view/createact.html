@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>create_act</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui@2.14.1/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="CSS/layout.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <!--<script src="https://cdn.staticfile.org/vue-resource/1.5.1/vue-resource.min.js"></script>-->
+</head>
+<body>
+<div class="header">
+    <h1>TXX小队路书</h1>
+</div>
+
+<div class="topnav">
+    <a href="begin.html">返回主页</a>
+</div>
+
+<div style="width:100%;">
+    <div id="app" style="width:50%;margin-left: 20%">
+        <div>
+            <h1>欢迎制作你的活动：</h1>
+        </div>
+        <div style="margin: 20px; "></div>
+        <el-form :label-position="labelPosition" label-width="80px" :model="formAct">
+            <el-form-item label="活动名">
+                <el-input placeholder="请输入活动名" v-model="formAct.activity_name"></el-input>
+            </el-form-item>
+            <el-form-item label="日期">
+                <el-date-picker v-model="formAct.date" type="date" placeholder="选择日期">
+                </el-date-picker>
+            </el-form-item>
+            <el-form-item label="参与人数">
+                <el-input placeholder="请输入参与人数" v-model="formAct.participants_number"></el-input>
+            </el-form-item>
+            <el-form-item label="活动介绍">
+                <el-input placeholder="请输入活动介绍" v-model="formAct.introduction" ></el-input>
+            </el-form-item>
+            <el-button type="primary" round @click="upload_Act" style="margin-left: 400px">上传活动</el-button>
+        </el-form>
+    </div>
+</div>
+
+
+</body>
+<!-- import Vue before Element -->
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<!-- import JavaScript -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+<script  type = "text/javascript">
+    var Main = new Vue({
+            el: '#app',
+            data: {
+                labelPosition: 'right',
+                formAct: {
+                    activity_name: '',
+                    route_id: localStorage.getItem("route"),
+                    date: '',
+                    participants_number: '',
+                    introduction: '',
+                    host: localStorage.getItem('user_id')
+                }
+            },
+            methods: {
+                upload_Act() {
+                    axios({
+                        method: 'post',
+                        url: 'http://localhost:8080/uploadActivity',
+                        data:this.formAct
+                    }).then(function (res) {
+                        alert("Upload successful!")
+                        window.location.herf="huodong.html";
+                    }, function (res) {
+                        alert("Upload failed!");
+                    });
+                }
+            }
+        }
+    )
+</script>
+
+
+</html>

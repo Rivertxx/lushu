@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>alter_routeinfo</title>
+    <link rel="stylesheet" href="https://unpkg.com/element-ui@2.14.1/lib/theme-chalk/index.css">
+    <link rel="stylesheet" href="CSS/layout.css">
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="https://cdn.staticfile.org/vue/2.2.2/vue.min.js"></script>
+</head>
+
+<style>
+    .picture1
+    {
+        margin-left: 80px;
+        margin-top: 15px;
+    }
+
+    .alink
+    {
+        color: white;
+        text-decoration: none;
+    }
+
+    #person
+    {
+        float: left;
+        display: block;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+        height: 48px;
+    }
+
+    #login
+    {
+        float: left;
+        display: block;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        height: 48px;
+        text-decoration: none;
+    }
+
+    #person :hover{
+        background-color: #ddd;
+        color: black;
+    }
+
+    #login :hover{
+        background-color: #ddd;
+        color: black;
+    }
+
+</style>
+
+
+<body>
+<div class="header">
+    <h1>TXX小队路书</h1>
+</div>
+
+<div class="topnav">
+    <a href="begin.html" id="login">返回主页</a>
+    <!--<a href="#" id="person">个人中心</a>-->
+</div>
+
+<div class="row">
+    <div class="column1">
+        <div id="app1">
+            <el-row class="tac">
+                <el-col>
+                    <el-menu
+                            default-active="0"
+                            class="el-menu-vertical-demo"
+                            @open="handleOpen"
+                            @close="handleClose"
+                            background-color="#545c64"
+                            text-color="#fff"
+                            active-text-color="#ffd04b">
+                        <el-menu-item index="0">
+                            <i class="el-icon-menu"></i>
+                            <a href="begin.html" class="alink">主页</a>
+                        </el-menu-item>
+                        <el-menu-item index="1">
+                            <i class="el-icon-menu"></i>
+                            <a href="lushu.html" class="alink">路书</a>
+                        </el-menu-item>
+                        <el-menu-item index="2">
+                            <i class="el-icon-menu"></i>
+                            <a href="huodong.html" class="alink">活动</a>
+                        </el-menu-item>
+                        <el-menu-item index="3">
+                            <i class="el-icon-menu"></i>
+                            <a href="navigation.html" class="alink">导航</a>
+                        </el-menu-item>
+                        <el-menu-item index="4">
+                            <i class="el-icon-setting"></i>
+                            <a href="about_us.html" class="alink">联系我们</a>
+                        </el-menu-item>
+                    </el-menu>
+                </el-col>
+            </el-row>
+        </div>
+    </div>
+
+    <div class="column2">
+        <div class="row_in_col2" style="height: 420px;border: 1px white;">
+            <img src="./pic/3.jpg" height="400px" width="1000px" class="picture1">
+        </div>
+
+        <div id="app" style="width:50%;margin-left: 20%">
+            <div style="margin: 20px; "></div>
+            <div>
+                <h1 style="color: wheat">修改作你的路书信息：</h1>
+            </div>
+            <el-form :label-position="labelPosition" label-width="80px" :model="formRoute">
+                <el-form-item label="线路名">
+                    <el-input placeholder="请输入线路名" v-model="formRoute.route_name"></el-input>
+                </el-form-item>
+                <el-form-item label="起点">
+                    <el-input placeholder="请输入起点" v-model="formRoute.start"></el-input>
+                </el-form-item>
+                <el-form-item label="终点">
+                    <el-input placeholder="请输入终点" v-model="formRoute.destination"></el-input>
+                </el-form-item>
+                <el-form-item label="里程数">
+                    <el-input placeholder="请输入里程数" v-model="formRoute.mileage"></el-input>
+                </el-form-item>
+                <el-form-item label="爬升">
+                    <el-input placeholder="请输入爬升" v-model="formRoute.cumulative_climb" ></el-input>
+                </el-form-item>
+                <el-form-item label="路况">
+                    <el-input placeholder="请输入路况" v-model="formRoute.road_condition" ></el-input>
+                </el-form-item>
+                <el-button type="primary" round @click="alter_routeinfo" style="margin-left: 300px">更改路书</el-button>
+            </el-form>
+        </div>
+
+        <div class="row_in_col2">
+            <footer style="margin-left: 10px">
+                <p>Posted by: TX MZQ ZYX</p>
+                <p>Contact information: 1873787521@qq.com</p>
+            </footer>
+        </div>
+    </div>
+</div>
+</div>
+</body>
+<!-- import Vue before Element -->
+<script src="https://unpkg.com/vue/dist/vue.js"></script>
+<!-- import JavaScript -->
+<script src="https://unpkg.com/element-ui/lib/index.js"></script>
+
+<script>
+    var user;
+    window.onload = function () {
+        user = localStorage.getItem("user_id");
+    };
+
+    var Main = new Vue({
+            el: '#app',
+            data: {
+                labelPosition: 'right',
+                formRoute: {
+                    route_name: '',
+                    start: '',
+                    destination: '',
+                    mileage: '',
+                    cumulative_climb: '',
+                    road_condition: '',
+                    author: localStorage.getItem('user_id'),
+                    user_id: localStorage.getItem('user_id'),
+                    route_id: localStorage.getItem('route')
+                }
+            },
+            methods: {
+                alter_routeinfo() {
+                    axios({
+                        method: 'post',
+                        url: 'http://localhost:8080/modifyRoute',
+                        data:Main.formRoute
+                    }).then(function (res) {
+                        console.log(res);
+                        if(res.data.state === "success")
+                        {
+                            alert("Alter successfully!");
+                        }
+                        else {
+                            alert("Alter failed! You don't have the role to do it!");
+                        }
+                        window.history.back(-1);
+                    }, function (res) {
+                        alert("Alter failed!");
+                        console.log(res);
+                    });
+                }
+            }
+        }
+    );
+
+    new Vue().$mount('#app1')
+</script>
+</html>
